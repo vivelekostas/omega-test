@@ -12,4 +12,12 @@ class Department extends Model
     protected $fillable = [
         'title',
     ];
+
+    /**
+     * Пользователи, принадлежащие отделу
+     */
+    public function users()
+    {
+        return $this->belongsToMany('App\Models\Users');
+    }
 }
