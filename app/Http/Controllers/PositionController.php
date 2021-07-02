@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Department;
+use App\Models\Position;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
-class DepartmentController extends Controller
+class PositionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,9 +18,9 @@ class DepartmentController extends Controller
      */
     public function index()
     {
-        $departments = Department::paginate();
+        $positions = Position::paginate();
 
-        return view('department.index', compact('departments'));
+        return view('position.index', compact('positions'));
     }
 
     /**
@@ -30,9 +30,9 @@ class DepartmentController extends Controller
      */
     public function create()
     {
-         $department = new Department();
+        $position = new Position();
 
-         return view('department.create', compact('department'));
+        return view('position.create', compact('position'));
     }
 
     /**
@@ -45,60 +45,60 @@ class DepartmentController extends Controller
     {
         //todo валидация или формреквест
 
-        Department::create($request->all());
+        Position::create($request->all());
 
-        return redirect()->route('departments.index');
+        return redirect()->route('positions.index');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param Department $department
+     * @param Position $position
      * @return Application|Factory|View
      */
-    public function show(Department $department)
+    public function show(Position $position)
     {
-        return view('department.show', compact('department'));
+        return view('position.show', compact('position'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param Department $department
+     * @param Position $position
      * @return Application|Factory|View
      */
-    public function edit(Department $department)
+    public function edit(Position $position)
     {
-        return view('article.edit', compact('department'));
+        return view('position.edit', compact('position'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param Request $request
-     * @param Department $department
+     * @param Position $position
      * @return RedirectResponse
      */
-    public function update(Request $request, Department $department)
+    public function update(Request $request, Position $position)
     {
         //todo валидация или форм реквест
 
-        $department->fill($request->all());
-        $department->save();
+        $position->fill($request->all());
+        $position->save();
 
-        return redirect()->route('departments.index');
+        return redirect()->route('positions.index');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param Department $department
+     * @param Position $position
      * @return RedirectResponse
      */
-    public function destroy(Department $department)
+    public function destroy(Position $position)
     {
-        $department->delete();
+        $position->delete();
 
-        return redirect()->route('departments.index');
+        return redirect()->route('positions.index');
     }
 }
