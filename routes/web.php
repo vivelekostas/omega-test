@@ -1,8 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\DepartmentController;
-use App\Http\Controllers\PositionController;
+use App\Http\Controllers\{DepartmentController, PositionController, UserController};
+
 
 /*
 |--------------------------------------------------------------------------
@@ -21,3 +21,4 @@ Route::get('/', function () {
 
 Route::resource('departments', DepartmentController::class);
 Route::resource('positions', PositionController::class);
+Route::resource('users', UserController::class);
