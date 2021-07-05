@@ -9,6 +9,7 @@
         <p>
             Email: {{$user->email}}<br>
             Должность: {{$user->position->title}}<br>
+            Роль: {{$user->role->title}}<br>
             Отдел/лы:
             @foreach ($user->departments as $department)
                 @if ($loop->last)

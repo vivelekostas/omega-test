@@ -23,6 +23,7 @@ class User extends Authenticatable
         'email',
         'password',
         'position_id',
+        'role_id',
     ];
 
     /**
@@ -51,6 +52,15 @@ class User extends Authenticatable
     public function position()
     {
         return $this->belongsTo('App\Models\Position');
+    }
+
+    /**
+     * Получить роль данного сотрудника. (один ко многим - обратное)
+     * @return BelongsTo
+     */
+    public function role()
+    {
+        return $this->belongsTo('App\Models\Role');
     }
 
     /**
