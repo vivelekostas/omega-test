@@ -8,6 +8,7 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class UserController extends Controller
 {
@@ -18,6 +19,7 @@ class UserController extends Controller
      */
     public function index()
     {
+//        Gate::authorize('show-users-index');
         $users = User::paginate();
 
         return view('user.index', compact('users'));
