@@ -19,7 +19,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('departments', DepartmentController::class);
+Route::resource('departments', DepartmentController::class, ['except' => [ 'show' ]]);
 Route::resource('positions', PositionController::class);
 Route::resource('users', UserController::class);
 

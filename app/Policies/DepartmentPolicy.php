@@ -12,9 +12,23 @@ class DepartmentPolicy
     use HandlesAuthorization;
 
     /**
+     * Выполнить предварительную авторизацию.
+     *
+     * @param User $user
+     * @param  string  $ability
+     * @return bool
+     */
+    public function before(User $user, string $ability)
+    {
+        if ($user->role->title == "Admin") {
+            return true;
+        }
+    }
+
+    /**
      * Determine whether the user can view any models.
      *
-     * @param  \App\Models\User  $user
+     * @param User $user
      * @return mixed
      */
     public function viewAny(User $user)
@@ -23,77 +37,43 @@ class DepartmentPolicy
     }
 
     /**
-     * Determine whether the user can view the model.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Department  $department
-     * @return mixed
-     */
-    public function view(User $user, Department $department)
-    {
-        //
-    }
-
-    /**
      * Determine whether the user can create models.
      *
-     * @param  \App\Models\User  $user
-     * @return mixed
+     * @param User $user
+     * @return Response
      */
-    public function create(User $user)
+    public function create(User $user): Response
     {
         return $user->role->title == 'Manager'
             ? Response::allow()
-            : Response::deny('Вы не менеджер и не можете создать новую должность');
+            : Response::deny();
     }
 
     /**
      * Determine whether the user can update the model.
      *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Department  $department
-     * @return mixed
+     * @param User $user
+     * @param Department $department
+     * @return Response
      */
-    public function update(User $user, Department $department)
+    public function update(User $user, Department $department): Response
     {
         return $user->role->title == 'Manager'
             ? Response::allow()
-            : Response::deny('Вы не менеджер и не можете обновлять должности!');
+            : Response::deny();
     }
 
     /**
      * Determine whether the user can delete the model.
      *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Department  $department
-     * @return mixed
+     * @param User $user
+     * @param Department $department
+     * @return Response
      */
-    public function delete(User $user, Department $department)
+    public function delete(User $user, Department $department): Response
     {
-        //
-    }
-
-    /**
-     * Determine whether the user can restore the model.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Department  $department
-     * @return mixed
-     */
-    public function restore(User $user, Department $department)
-    {
-        //
-    }
-
-    /**
-     * Determine whether the user can permanently delete the model.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Department  $department
-     * @return mixed
-     */
-    public function forceDelete(User $user, Department $department)
-    {
-        //
+        return $user->role->title != 'Admin'
+            ? Response::deny()
+            : Response::allow();
     }
 }

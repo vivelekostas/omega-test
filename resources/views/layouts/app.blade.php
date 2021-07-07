@@ -30,6 +30,14 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
+                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                    <div class="navbar-nav">
+                        <a class="nav-item nav-link" href="{{route('users.index')}}">Сотрудники</a>
+                        <a class="nav-item nav-link" href="{{route('departments.index')}}">Отделы</a>
+                        <a class="nav-item nav-link" href="{{route('positions.index')}}">Должности</a>
+                    </div>
+                </div>
+
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">

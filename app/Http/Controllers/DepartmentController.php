@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Department;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -41,24 +42,13 @@ class DepartmentController extends Controller
      * @param Request $request
      * @return RedirectResponse
      */
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
         //todo валидация или формреквест
 
         Department::create($request->all());
 
         return redirect()->route('departments.index');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param Department $department
-     * @return Application|Factory|View
-     */
-    public function show(Department $department)
-    {
-        return view('department.show', compact('department'));
     }
 
     /**
@@ -69,7 +59,7 @@ class DepartmentController extends Controller
      */
     public function edit(Department $department)
     {
-        return view('article.edit', compact('department'));
+        return view('department.edit', compact('department'));
     }
 
     /**
@@ -79,7 +69,7 @@ class DepartmentController extends Controller
      * @param Department $department
      * @return RedirectResponse
      */
-    public function update(Request $request, Department $department)
+    public function update(Request $request, Department $department): RedirectResponse
     {
         //todo валидация или форм реквест
 
@@ -95,7 +85,7 @@ class DepartmentController extends Controller
      * @param Department $department
      * @return RedirectResponse
      */
-    public function destroy(Department $department)
+    public function destroy(Department $department): RedirectResponse
     {
         $department->delete();
 
