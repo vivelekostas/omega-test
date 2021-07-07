@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Department;
 use App\Models\User;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 
 class UserController extends Controller
@@ -33,8 +35,10 @@ class UserController extends Controller
     public function create()
     {
         $user = new User();
+        $departments = DB::table('departments')->pluck('title', 'id');
+        $positions = DB::table('positions')->pluck('title', 'id');
 
-        return view('user.create', compact('user'));
+        return view('user.create', compact('user', 'departments', 'positions'));
     }
 
     /**

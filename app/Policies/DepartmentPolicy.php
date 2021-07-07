@@ -70,8 +70,8 @@ class DepartmentPolicy
      */
     public function delete(User $user)
     {
-        return $user->role->title != Role::ADMIN
-            ? Response::deny()
-            : Response::allow();
+        return $user->role->title == Role::ADMIN
+            ? Response::allow()
+            : Response::deny();
     }
 }

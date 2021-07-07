@@ -7,7 +7,7 @@ use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Auth\Access\Response;
 
-class PositionPolicy
+class UserPolicy
 {
     use HandlesAuthorization;
 
@@ -37,6 +37,22 @@ class PositionPolicy
     }
 
     /**
+     * Determine whether the user can view the model.
+     *
+     * @param User $user
+     * @param User $model
+     * @return mixed
+     */
+    public function view(User $user, User $model)
+    {
+        if ($user->role->title == Role::MANAGER ||$user->id == $model->id) {
+            return Response::allow();
+        }
+
+        return Response::deny();
+    }
+
+    /**
      * Determine whether the user can create models.
      *
      * @param User $user
@@ -53,9 +69,10 @@ class PositionPolicy
      * Determine whether the user can update the model.
      *
      * @param User $user
+     * @param User $model
      * @return Response
      */
-    public function update(User $user)
+    public function update(User $user, User $model)
     {
         return $user->role->title == Role::MANAGER
             ? Response::allow()
@@ -66,9 +83,10 @@ class PositionPolicy
      * Determine whether the user can delete the model.
      *
      * @param User $user
-     * @return Response
+     * @param User $model
+     * @return mixed
      */
-    public function delete(User $user)
+    public function delete(User $user, User $model)
     {
         return $user->role->title == Role::ADMIN
             ? Response::allow()

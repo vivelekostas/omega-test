@@ -3,8 +3,7 @@
 @section('title', 'Сотрудник')
 
 @section('content')
-    <div>
-
+    <div class="container">
         <h2>{{$user->name}} {{$user->last_name}}</h2>
         <p>
             Email: {{$user->email}}<br>
