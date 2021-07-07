@@ -7,7 +7,7 @@ use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Auth\Access\Response;
 
-class DepartmentPolicy
+class PositionPolicy
 {
     use HandlesAuthorization;
 
@@ -70,8 +70,9 @@ class DepartmentPolicy
      */
     public function delete(User $user)
     {
-        return $user->role->title != Role::ADMIN
-            ? Response::deny()
-            : Response::allow();
+        return $user->role->title == Role::ADMIN
+            ? Response::allow()
+            : Response::deny();
     }
+
 }

@@ -20,7 +20,7 @@ Route::get('/', function () {
 });
 
 Route::resource('departments', DepartmentController::class, ['except' => [ 'show' ]]);
-Route::resource('positions', PositionController::class);
+Route::resource('positions', PositionController::class, ['except' => [ 'show' ]]);
 Route::resource('users', UserController::class);
 
 Auth::routes();
