@@ -23,6 +23,7 @@
     ]) }}<br>
 
 {{ Form::label('role_id', 'Роль') }}
+{{--todo получить из бд--}}
 {{ Form::select('role_id', [1 => 'Admin', 2 => 'Manager', 3 => 'User']) }}<br>
 
 {{ Form::label('department_id', 'Отдел') }}
