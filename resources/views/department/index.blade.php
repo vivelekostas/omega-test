@@ -18,8 +18,8 @@
                 </div>
                 @can('update', $department)
                     <div class="col-sm-offset-2">
-                        <a class="btn btn-primary btn-sm"
-                           href="{{route('departments.edit', $department)}}">Обновить</a>
+                        <a class="btn btn-primary  fa fa-refresh"
+                           href="{{route('departments.edit', $department)}}"></a>
                     </div>
                 @endcan
                 @can('delete', $department)

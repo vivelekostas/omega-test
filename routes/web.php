@@ -19,9 +19,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('departments', DepartmentController::class, ['except' => [ 'show' ]]);
-Route::resource('positions', PositionController::class, ['except' => [ 'show' ]]);
-Route::resource('users', UserController::class);
+Route::middleware('auth')->group(function () {
+    Route::resource('departments', DepartmentController::class, ['except' => [ 'show' ]]);
+    Route::resource('positions', PositionController::class, ['except' => [ 'show' ]]);
+    Route::resource('users', UserController::class);
+});
 
 Auth::routes();
 

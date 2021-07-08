@@ -8,6 +8,7 @@
     </div>
 @endif
 
+{{ Form::file('image')}}
 {{ Form::label('name', 'Имя') }}
 {{ Form::text('name') }}<br>
 {{ Form::label('last_name', 'Фамилия') }}
@@ -20,7 +21,7 @@
 {{ Form::label('position_id', 'Должность') }}
 {{ Form::select('position_id', $positions, null, [
     'id' => 'positions',
-    ]) }}<br>
+    ])}}<br>
 
 {{ Form::label('role_id', 'Роль') }}
 {{--todo получить из бд--}}

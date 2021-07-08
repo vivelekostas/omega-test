@@ -20,11 +20,9 @@ class UserController extends Controller
      */
     public function index()
     {
-//        Gate::authorize('show-users-index');
         $users = User::paginate(10);
 
-//        return view('user.index', compact('users'));
-        return view('user.indexxx', compact('users'));
+        return view('user.index', compact('users'));
     }
 
     /**
@@ -50,7 +48,6 @@ class UserController extends Controller
     public function store(Request $request)
     {
         //todo валидация или формреквест
-//        dd($request->all());
 
         $user = User::create($request->all());
         $user->departments()->attach($request->input('department_id'));
@@ -77,7 +74,10 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        return view('user.edit', compact('user'));
+        $departments = DB::table('departments')->pluck('title', 'id');
+        $positions = DB::table('positions')->pluck('title', 'id');
+
+        return view('user.edit', compact('user', 'departments', 'positions'));
     }
 
     /**

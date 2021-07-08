@@ -22,8 +22,8 @@
                 </div>
                 @can('update', $position)
                     <div class="col-sm-offset-2">
-                        <a class="btn btn-primary btn-sm"
-                           href="{{route('positions.edit', $position)}}">Обновить</a>
+                        <a class="btn btn-primary fa fa-refresh"
+                           href="{{route('positions.edit', $position)}}"></a>
                     </div>
                 @endcan
                 @can('delete', $position)
