@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -18,8 +19,11 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'last_name',
         'email',
         'password',
+        'position_id',
+        'role_id',
     ];
 
     /**
@@ -40,4 +44,35 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function setPasswordAttribute($password)
+    {
+        $this->attributes['password'] = bcrypt($password);
+    }
+
+    /**
+     * Получить должность данного сотрудника. (один ко многим - обратное)
+     * @return BelongsTo
+     */
+    public function position()
+    {
+        return $this->belongsTo('App\Models\Position');
+    }
+
+    /**
+     * Получить роль данного сотрудника. (один ко многим - обратное)
+     * @return BelongsTo
+     */
+    public function role()
+    {
+        return $this->belongsTo('App\Models\Role');
+    }
+
+    /**
+     * Отделы, а которых числится сотрудник (многие ко многим)
+     */
+    public function departments()
+    {
+        return $this->belongsToMany('App\Models\Department');
+    }
 }
