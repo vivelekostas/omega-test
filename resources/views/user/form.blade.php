@@ -8,7 +8,7 @@
     </div>
 @endif
 
-{{ Form::file('image')}}
+{{ Form::file('image')}}<br>
 {{ Form::label('name', 'Имя') }}
 {{ Form::text('name') }}<br>
 {{ Form::label('last_name', 'Фамилия') }}
