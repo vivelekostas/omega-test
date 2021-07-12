@@ -9,6 +9,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 
 class UserController extends Controller
@@ -32,11 +33,13 @@ class UserController extends Controller
      */
     public function create()
     {
+        $is_user_create_page = true;
+
         $user = new User();
         $departments = DB::table('departments')->pluck('title', 'id');
         $positions = DB::table('positions')->pluck('title', 'id');
 
-        return view('user.create', compact('user', 'departments', 'positions'));
+        return view('user.create', compact('user', 'departments', 'positions', 'is_user_create_page'));
     }
 
     /**
@@ -50,6 +53,13 @@ class UserController extends Controller
         //todo валидация или формреквест
 
         $user = User::create($request->all());
+
+        if ($request->hasFile('image')) {
+            $path = $request->file('image')->store('avatars', 'public');
+            $user->image = $path;
+            $user->save();
+        }
+
         $user->departments()->attach($request->input('department_id'));
 
         return redirect()->route('users.index');
@@ -74,10 +84,12 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
+        $is_user_create_page = false;
+
         $departments = DB::table('departments')->pluck('title', 'id');
         $positions = DB::table('positions')->pluck('title', 'id');
 
-        return view('user.edit', compact('user', 'departments', 'positions'));
+        return view('user.edit', compact('user', 'departments', 'positions', 'is_user_create_page'));
     }
 
     /**
@@ -91,6 +103,15 @@ class UserController extends Controller
     {
         //todo валидация или форм реквест
         //todo сервис?
+
+        if ($request->hasFile('image')) {
+            if ($user->image) { // удаляет старое фото из хранилища, если есть
+                Storage::delete('public/' . $user->image);
+            }
+
+            $path = $request->file('image')->store('avatars', 'public');
+            $user->image = $path;
+        }
 
         $user->departments()->detach();
         $user->fill($request->all());
