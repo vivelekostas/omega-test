@@ -8,15 +8,23 @@
     </div>
 @endif
 
+{{ Form::label('image', 'Аватар') }}
 {{ Form::file('image')}}<br>
-{{ Form::label('name', 'Имя') }}
-{{ Form::text('name') }}<br>
+
+{{ Form::label('name', 'Имя')}}
+{{ Form::text('name')}}<br>
+
+
 {{ Form::label('last_name', 'Фамилия') }}
-{{ Form::text('last_name') }}<br>
+{{ Form::text('last_name')}}<br>
+
 {{ Form::label('email', 'Email') }}
 {{ Form::text('email') }}<br>
-{{ Form::label('password', 'Пароль') }}
-{{ Form::password('password') }}<br>
+
+@if($is_user_create_page === true)
+    {{ Form::label('password', 'Пароль') }}
+    {{ Form::password('password') }}<br>
+@endif
 
 {{ Form::label('position_id', 'Должность') }}
 {{ Form::select('position_id', $positions, null, [
