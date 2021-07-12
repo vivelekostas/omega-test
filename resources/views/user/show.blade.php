@@ -5,9 +5,9 @@
 @section('content')
     <div class="container">
         @isset($user->image)
-            <img class="img-fluid" src="{{asset('/storage/' . $user->image)}}" width="200" height="250">
+            <img class="img-fluid" src="{{asset('/storage/' . $user->image)}}" width="150" height="200">
         @else
-            <img class="img-fluid" src="{{asset('/storage/' . 'avatars/avatar.png')}}" width="200" height="250">
+            <img class="img-fluid" src="{{asset('/storage/' . 'avatars/avatar.png')}}" width="150" height="200">
         @endisset
         <h2>{{$user->name}} {{$user->last_name}}</h2>
         <p>

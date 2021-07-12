@@ -74,7 +74,7 @@ class UserPolicy
      */
     public function update(User $user, User $model)
     {
-        return $user->role->title == Role::MANAGER
+        return $user->role->title == Role::MANAGER || $user->id == $model->id
             ? Response::allow()
             : Response::deny();
     }
