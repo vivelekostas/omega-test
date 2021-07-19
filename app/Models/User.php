@@ -75,4 +75,9 @@ class User extends Authenticatable
     {
         return $this->belongsToMany('App\Models\Department');
     }
+
+    public function scopeLast($query)
+    {
+        return $query->latest()->first();
+    }
 }
