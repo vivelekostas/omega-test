@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PositionRequest;
 use App\Models\Position;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 
 class PositionController extends Controller
 {
@@ -38,13 +38,11 @@ class PositionController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $request
+     * @param PositionRequest $request
      * @return RedirectResponse
      */
-    public function store(Request $request)
+    public function store(PositionRequest $request): RedirectResponse
     {
-        //todo валидация или формреквест
-
         Position::create($request->all());
 
         return redirect()->route('positions.index');
@@ -75,11 +73,11 @@ class PositionController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
+     * @param PositionRequest $request
      * @param Position $position
      * @return RedirectResponse
      */
-    public function update(Request $request, Position $position)
+    public function update(PositionRequest $request, Position $position): RedirectResponse
     {
         //todo валидация или форм реквест
 
@@ -95,7 +93,7 @@ class PositionController extends Controller
      * @param Position $position
      * @return RedirectResponse
      */
-    public function destroy(Position $position)
+    public function destroy(Position $position): RedirectResponse
     {
         $position->delete();
 
